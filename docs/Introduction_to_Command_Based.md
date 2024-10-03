@@ -1,6 +1,6 @@
 # Introduction to Command Based Programming
 
->This assumes you have set up the WPILib development environment and have some previous experience with programming. If you have questions or need assistance, feel free to ask David or any of the other returning software team members
+>This guide assumes you have set up the FRC development environment and have some previous experience with programming. [Here](https://docs.google.com/document/d/1D_mcwmVLvQwqdbdHkHKadVn-h2wcsIWZaU5CHTG-qwE/edit) is a guide to install the FRC Development Environment, if you do not already have it on your machine. If you have questions or need assistance, feel free to ask David or any of the other returning software team members
 ## Java
 >If you are already familiar with the Java programming language, you can skip this section
 
@@ -23,7 +23,7 @@ class Car {
 > - `double`: Double, stores rational numbers in decimal form
 > - `boolean`: Boolean, stores true-false values
 >
-> Another data type which *isn't* primitive but does come up alot is `String`, which represents strings of text (like the one you're reading right now). We'll return to non-primitive data types soon.
+> Another data type which *isn't* primitive but does come up alot is `String`, which represents strings of text (like the one you're reading right now).
 
 Great! Now we have some information about our car. But we still need to make it do stuff. Let's add a method called `drive`, which tells our car to subtract 1 from its gas and add 1 to its position:
 ```java
