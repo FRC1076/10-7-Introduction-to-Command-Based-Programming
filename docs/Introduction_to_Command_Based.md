@@ -247,11 +247,11 @@ public class TankDrive extends Command {
 }
 ```
 
->A `Supplier` is a way to pass a *function* as a parameter, rather than its return value. To call the function, you simply call the `get()` method on the `Supplier`. Because we are trying to pass a function that returns a `double`, we are using a `DoubleSupplier`, which uses the `getAsDouble()` method
+>A `DoubleSupplier` is a way to take a *function* as a parameter, rather than just its return value. To call the function, you simply call the `getAsDouble()` method on the `DoubleSupplier`.
 
 >`execute()` is a special method that is periodically called while a command is scheduled. The code we want the command to run should be in this method
 
-We already have a constructor built for us. All that is left is to actually write the command itself. We will retrieve the speeds from the two DoubleSuppliers `leftSpeedSupplier` and `rightSpeedSupplier`. To write our command, we simply need to pass our Suppliers' return values to our subsystem's `drive` method:
+We already have a constructor built for us. All that is left is to actually write the command itself. We will retrieve the speeds from the two DoubleSuppliers `leftSpeedSupplier` and `rightSpeedSupplier`. To write our command, we simply need to pass our speed values to our subsystem's `drive` method:
 ```java
 subsystem.drive(
     leftSpeedSupplier.getAsDouble(),
@@ -338,7 +338,7 @@ m_robotDrive.setDefaultCommand(new TankDrive(
 ```
 >A subsystem's **default command** is automatically scheduled when the robot starts up. Typically, default commands should have no end condition, and should only stop when they are interrupted by another command using the same subsystem.
 
-> `() -> m_driverController.getLeftY()` is a **lambda expression** that returns the value of `m_driverController.getLeftY()`. A lambda expression is similar to a method, in that it takes parameters and then returns some value, but lambda expressions can be created without a name, and can be implemented right in the body of a method. We need to pass a lambda expression to our command because passing `m_driverController.getLeftY()` would pass a double, while we want to pass the method *itself*. If we simply passed `m_driverController.getLeftY()` as a double, the robot would check the value of the left stick on the controller *exactly once*, and then the command would be permanently stuck on that value.
+> `() -> m_driverController.getLeftY()` is a **lambda expression** that returns the value of `m_driverController.getLeftY()`. We'll learn more about lambda expressions later, but for now all you need to know about them is that they are a way to treat methods as if they were objects (e.g. passing them as a parameter)
 
 >The controller inputs need to be inverted, as the commandXboxController API considers down to be positive in the y direction on the sticks.
 
