@@ -212,8 +212,166 @@ public class DriveSubsystem extends SubsystemBase {
     }
 }
 ```
+### Commands
+
+We now have a functional subsystem, but we have no way of controlling it! Let's make a command to run our subsystem. First, open up the commands/TankDrive.java file. It should look like this:
+```java
+package frc.robot.commands;
+
+import java.util.function.DoubleSupplier;
+import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.DriveSubsystem;
+
+public class TankDrive extends Command {
+    private final DoubleSupplier leftSpeedSupplier;
+    private final DoubleSupplier rightSpeedSupplier;
+    private final DriveSubsystem subsystem;
+    
+    public ArcadeDrive(DoubleSupplier _left, DoubleSupplier _right, DriveSubsystem _subsystem){
+        leftSpeedSupplier = _left;
+        rightSpeedSupplier = _right;
+        subsystem = _subsystem;
+        addRequirements(subsystem);
+    }
+
+    @Override
+    public void execute() {
+        // Write your command here
+
+    }
+
+    @Override
+    public boolean isFinished() {
+        return false;
+    }
+}
+```
+
+>A `Supplier` is a way to pass a *function* as a parameter, rather than its return value. To call the function, you simply call the `get()` method on the `Supplier`. Because we are trying to pass a function that returns a `double`, we are using a `DoubleSupplier`, which uses the `getAsDouble()` method
+
+>`execute()` is a special method that is periodically called while a command is scheduled. The code we want the command to run should be in this method
+
+We already have a constructor built for us. All that is left is to actually write the command itself. We will retrieve the speeds from the two DoubleSuppliers `leftSpeedSupplier` and `rightSpeedSupplier`. To write our command, we simply need to pass our Suppliers' return values to our subsystem's `drive` method:
+```java
+subsystem.drive(
+    leftSpeedSupplier.getAsDouble(),
+    rightSpeedSupplier.getAsDouble()
+);
+```
+The code should now look something like this:
+```java
+package frc.robot.commands;
+
+import java.util.function.DoubleSupplier;
+import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.DriveSubsystem;
+
+public class TankDrive extends Command {
+    private final DoubleSupplier leftSpeedSupplier;
+    private final DoubleSupplier rightSpeedSupplier;
+    private final DriveSubsystem subsystem;
+    
+    public TankDrive(DoubleSupplier _left, DoubleSupplier _right, DriveSubsystem _subsystem){
+        leftSpeedSupplier = _left;
+        rightSpeedSupplier = _right;
+        subsystem = _subsystem;
+        addRequirements(subsystem);
+    }
+
+    @Override
+    public void execute() {
+        // Write your command here
+        subsystem.drive(
+            leftSpeedSupplier.getAsDouble(),
+            rightSpeedSupplier.getAsDouble()
+        );
+    }
+
+    @Override
+    public boolean isFinished() {
+        return false;
+    }
+}
+```
+### The Robot Container
+
+Alright! We now have a subsystem, and a command to control it. However, we still need to tell the Robot to use our command and subsystem. To do this, we need to edit the RobotContainer.java file. It should look like this:
+```java
+// Copyright (c) FIRST and other WPILib contributors.
+// Open Source Software; you can modify and/or share it under the terms of
+// the WPILib BSD license file in the root directory of this project.
+
+package frc.robot;
+
+import frc.robot.Constants.OperatorConstants;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+
+public class RobotContainer {
+
+    private final CommandXboxController m_driverController =
+        new CommandXboxController(OperatorConstants.kDriverControllerPort);
+
+    public RobotContainer() {
+        
+    }
+}
+```
+
+First, we need to import our Command and Subsystem. Add the following lines of code to the RobotContainer file:
+```java
+import frc.robot.commands.TankDrive;
+import frc.robot.subsystems.DriveSubsystem;
+```
+
+Next, we need to instantiate our subsystem in the `RobotContainer` class:
+
+```java
+private final m_robotDrive = new DriveSubsystem();
+```
+Now, we need to tell the robot to schedule our `TankDrive` command. To do this, we will set it as our subsystem's default command in the `RobotContainer` constructor. Since we want to control our robot from an Xbox controller, we will pass the xbox controller's sticks as the speeds, which can be retrieved with the `getLeftY` and `getRightY` methods.
+```java
+m_robotDrive.setDefaultCommand(new TankDrive(
+    () -> m_driverController.getLeftY(),
+    () -> m_driverController.getRightY(),
+    m_robotDrive
+));
+```
+>A subsystem's **default command** is automatically scheduled when the robot starts up. Typically, default commands should have no end condition, and should only stop when they are interrupted by another command using the same subsystem.
+
+> `() -> m_driverController.getLeftY()` is a **lambda expression** that returns the value of `m_driverController.getLeftY()`. A lambda expression is similar to a method, in that it takes parameters and then returns some value, but lambda expressions can be created without a name, and can be implemented right in the body of a method. We need to pass a lambda expression to our command because passing `m_driverController.getLeftY()` would pass a double, while we want to pass the method *itself*. If we simply passed `m_driverController.getLeftY()` as a double, the robot would check the value of the left stick on the controller *exactly once*, and then the command would be permanently stuck on that value.
+
+The code should look something like this:
+```java
+// Copyright (c) FIRST and other WPILib contributors.
+// Open Source Software; you can modify and/or share it under the terms of
+// the WPILib BSD license file in the root directory of this project.
+
+package frc.robot;
+
+import frc.robot.Constants.OperatorConstants;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.commands.TankDrive;
+import frc.robot.subsystems.DriveSubsystem;
+
+
+public class RobotContainer {
+
+    private final CommandXboxController m_driverController =
+        new CommandXboxController(OperatorConstants.kDriverControllerPort);
+    private final m_robotDrive = new DriveSubsystem();
+
+    public RobotContainer() {
+        m_robotDrive.setDefaultCommand(new TankDrive(
+            () -> m_driverController.getLeftY(),
+            () -> m_driverController.getRightY(),
+            m_robotDrive
+        ));
+    }
+}
+``` 
+
 ### Getting code onto a robot
-Now, time to run our code. To do this, we need to first connect to Chuck. To do this, go to your wifi settings, and connect to the **1076_GullLake** network. To check if you're fully connected, open up the **FRC Driverstation** and make sure the **Communications** light is green.
+Now, it's time to run our code. To do this, we need to first connect to Chuck. To do this, go to your wifi settings, and connect to the **1076_GullLake** network. To check if you're fully connected, open up the **FRC Driverstation** and make sure the **Communications** light is green.
 
 Once we're connected to Chuck, we need to deploy your code. Press the small 'W' in the top right corner of VSCode to open your command palette.
 
@@ -223,7 +381,7 @@ You should see a drop-down menu. To deploy code, select the **WPILib: Deploy Rob
 
 ![image](CommandPaletteDropdown.png)
 
-To make sure the code has correctly deployed, check the terminal output in VSCode, and open up the **FRC Driverstation** app and ensure the **Robot Code** light is **Green**
+To make sure the code has correctly deployed, check the terminal output in VSCode, and make sure the **Robot Code** light in the FRC Driverstation is green
 
 >### Safety
 >Before we enable and run **any** code on a robot, there are some important safety rules to know and follow:
@@ -245,4 +403,4 @@ Finally, we need to enable our code. To do this, select "Enable" in the FRC Driv
 >When the orange light on Chuck starts flashing, that means your code is enabled
 
 
-Congratulations! You have just successfully written and deployed your first robot program! On Wednesday, we will be looking at Commands and the RobotContainer
+Congratulations! You have just successfully written and deployed your first robot program!
