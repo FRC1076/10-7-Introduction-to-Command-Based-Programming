@@ -18,8 +18,8 @@ public class RobotContainer {
 
     public RobotContainer() {
         m_robotDrive.setDefaultCommand(new TankDrive(
-            () -> m_driverController.getLeftY(),
-            () -> m_driverController.getRightY(),
+            () -> -m_driverController.getLeftY(),
+            () -> -m_driverController.getRightY(),
             m_robotDrive
         ));
     }
