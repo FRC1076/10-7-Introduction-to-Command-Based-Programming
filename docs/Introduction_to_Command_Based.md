@@ -107,8 +107,8 @@ Here are helpful resources for learning more about Java:
 ## Command-Based Programming
 For programming our robots, we use a **Command-based** architecture. This means our robot code is divided into three primary components:
 - Subsystems, which control the robot's various systems (driving, arms, servos, etc.)
-- Commands, which control the subsystems
-- The RobotContainer, which instantiates and, well, contains all of the commands and subsystems
+- Commands, which control the subsystems (drive forward, move arm up, etc.)
+- The RobotContainer, which instantiates and, well, calls all of the commands and subsystems
 ### Subsystems 
 Today, we will be making a subsystem that will drive Chuck. To begin, go to the src/main/java/frc/robot/subsystems folder, and open "DriveSubsystem.java". You should see something like this:
 ```java
@@ -144,7 +144,7 @@ This part tells Java that this file is part of the 'frc.robot.subsystems' packag
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 ```
-this part imports the necessary packages for our code. In this case, we are importing the `SubsystemBase` class, which our DriveSubsystem inherits from, and the `WPI_TalonSRX` class, which interfaces with the motors that we're using.
+this part imports the necessary packages for our code. In this case, we are importing the `SubsystemBase` class, which our DriveSubsystem inherits from, and the `WPI_TalonSRX` class, which interfaces with the motors that we're using. Physically, a TalonSRX is a motor controller which we use to run the motor.
 ```java
 private final WPI_TalonSRX m_leftLeader = new WPI_TalonSRX(7);
 private final WPI_TalonSRX m_leftFollower = new WPI_TalonSRX(2);
@@ -213,7 +213,9 @@ public class DriveSubsystem extends SubsystemBase {
 }
 ```
 ### Getting code onto a robot
-Now, time to run our code. To do this, we need to first connect to Chuck. To do this, go to your wifi settings, and connect to the **1076_GullLake** network. Once we're connected to Chuck, we need to deploy your code. Press the small 'W' in the top right corner of VSCode to open your command palette.
+Now, time to run our code. To do this, we need to first connect to Chuck. To do this, go to your wifi settings, and connect to the **1076_GullLake** network. To check if you're fully connected, open up the **FRC Driverstation** and make sure the **Communications** light is green.
+
+Once we're connected to Chuck, we need to deploy your code. Press the small 'W' in the top right corner of VSCode to open your command palette.
 
 ![image](WPILibCommandPalette.png)
 
@@ -221,10 +223,28 @@ You should see a drop-down menu. To deploy code, select the **WPILib: Deploy Rob
 
 ![image](CommandPaletteDropdown.png)
 
+To make sure the code has correctly deployed, check both the terminal output in VSCode and the **Robot Code** light in the **FRC Driverstation** app (which should be green).
+
+## Safety
+Before we enable and run the code, there are some important safety rules to known and follow. Below are the rules:
+
+1. Before enabling, make sure to **check the surroundings of the robot**. If anyone is near the robot, tell them you are about to enable. If they don't move, don't enable.
+
+2. Make sure all the controllers that are plugged in are accounted for. **If a controller is not in someone's hand, unplug it**. This is so that nothing or no one will accidentally press a button on the controller or move a joystick, which could result in the robot moving unpredictably.
+
+3. If you are done testing the code, **disable the robot as soon as possible**. Never leave the enabled code unattended.
+
+4. **Wear safety glasses** if you are near an enabled robot. In the case that the robot does move unpredictably, this can help prevent injuries.
+
+5. **[SPACE] is EMERGENCY STOP!** If the robot is behaving in a dangerous way to itself or a human, hit the [SPACE] button immediately!
+
+## Back to Running the Code!
+
 Next, we need to enable our code. To do this, open up the **FRC Driverstation** app, and select "Enable". 
 
 ![image](FRCDriverStation.png)
 
 >When the orange light on Chuck starts flashing, that means your code is enabled
+
 
 Congratulations! You have just successfully written and deployed your first robot program! On Wednesday, we will be looking at the RobotContainer
