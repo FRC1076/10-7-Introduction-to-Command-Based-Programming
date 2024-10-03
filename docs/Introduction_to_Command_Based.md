@@ -151,49 +151,80 @@ private final WPI_TalonSRX m_leftFollower = new WPI_TalonSRX(2);
 private final WPI_TalonSRX m_rightLeader = new WPI_TalonSRX(5);
 private final WPI_TalonSRX m_rightFollower = new WPI_TalonSRX(3);
 ```
-this block instatiates our motors and points them to the correct motor ports.
+this part instatiates our motors and points them to the correct motor ports.
+
+Our first task is to build a constructor for the DriveSubsystem class. Because we are building a simple tankdrive, we want all the motors on a given side of the robot to have the same output. While we can manually set the motors to the same output, it would be easier to automate the process. To do this, we will slave the back motors to the front motors, which means that the back motors will automatically copy the output of the front motors:
+
+```java
+public driveSubsystem(){
+    m_leftFollower.follow(m_leftLeader);
+    m_rightFollower.follow(m_rightLeader);
+}
+```
+
+Now, we only need to worry about the front motors. Because the motors on the robot are facing opposite each other, they will rotate in opposite directions, causing the robot to spin in place. To solve this, we need to reverse one motor's output so that they both rotate in the same direction
+
+```java
+public driveSubsystem(){
+    m_leftFollower.follow(m_leftLeader);
+    m_rightFollower.follow(m_rightLeader);
+
+    m_rightLeader.setInverted(true);
+}
+```
+
+Next, we need to create the actual `drive` method. Our `drive` method will take two parameters: `leftPower`, and `rightPower`. In our `drive` method, we simply want to set the left motors to `leftPower`, and the right motors to `rightPower`. To set our motors to a power, we simply need to call their `set` method:
+
+```java
+public void drive(double leftPower, double rightPower){
+    m_leftLeader.set(leftPower);
+    m_rightLeader.set(rightPower);
+}
+```
+
+>Because we slaved our back motors, calling the `set` method on the front motors will automatically also set the back motors to the same power.
+
+Now, we have a functioning drive subsystem! Our code should look something like this:
+
 ```java
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
-
 public class DriveSubsystem extends SubsystemBase {
-
+    
     private final WPI_TalonSRX m_leftLeader = new WPI_TalonSRX(7);
     private final WPI_TalonSRX m_leftFollower = new WPI_TalonSRX(2);
     private final WPI_TalonSRX m_rightLeader = new WPI_TalonSRX(5);
     private final WPI_TalonSRX m_rightFollower = new WPI_TalonSRX(3);
 
-    // The constructor for the subsystem
-    public DriveSubsystem() {
-
-        //Pairing motors
+    public DriveSubsystem(){
         m_leftFollower.follow(m_leftLeader);
         m_rightFollower.follow(m_rightLeader);
+
         m_rightLeader.setInverted(true);
-
     }
-
-    // A method to drive the robot
+    
     public void drive(double leftSpeed, double rightSpeed){
-        m_leftLeader.set(leftSpeed);
-        m_rightLeader.set(rightSpeed);
-    }
-
-    @Override
-    public void periodic() {
-
+        m_leftLeader.set(leftPower);
+        m_rightLeader.set(rightPower);
     }
 }
 ```
+### Getting code onto a robot
+Now, time to run our code. To do this, we need to first connect to Chuck. To do this, go to your wifi settings, and connect to the **1076_GullLake** network. Once we're connected to Chuck, we need to deploy your code. Press the small 'W' in the top right corner of VSCode to open your command palette.
 
+![image](WPILibCommandPalette.png)
 
-```java
-private final WPI_TalonSRX m_leftLeader = new WPI_TalonSRX(7);
-private final WPI_TalonSRX m_leftFollower = new WPI_TalonSRX(2);
-private final WPI_TalonSRX m_rightLeader = new WPI_TalonSRX(5);
-private final WPI_TalonSRX m_rightFollower = new WPI_TalonSRX(3);
+You should see a drop-down menu. To deploy code, select the **WPILib: Deploy Robot Code** option. This will load our code into the robot. 
 
-```
+![image](CommandPaletteDropdown.png)
+
+Next, we need to enable our code. To do this, open up the **FRC Driverstation** app, and select "Enable". 
+
+![image](FRCDriverStation.png)
+
+>When the orange light on Chuck starts flashing, that means your code is enabled
+
+Congratulations! You have just successfully written and deployed your first robot program! On Wednesday, we will be looking at the RobotContainer

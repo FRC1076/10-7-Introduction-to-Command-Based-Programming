@@ -15,7 +15,7 @@ public class DriveSubsystem extends SubsystemBase {
 
     }
     
-    public void drive(double leftSpeed, double rightSpeed){
+    public void drive(double leftPower, double rightPower){
         // Write drive method here
 
     }
