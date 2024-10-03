@@ -108,7 +108,7 @@ Here are helpful resources for learning more about Java:
 For programming our robots, we use a **Command-based** architecture. This means our robot code is divided into three primary components:
 - Subsystems, which control the robot's various systems (driving, arms, servos, etc.)
 - Commands, which control the subsystems (drive forward, move arm up, etc.)
-- The RobotContainer, which instantiates and, well, calls all of the commands and subsystems
+- The Robot Container, which creates and contains all of the commands and subsystems
 ### Subsystems 
 Today, we will be making a subsystem that will drive Chuck. To begin, go to the src/main/java/frc/robot/subsystems folder, and open "DriveSubsystem.java". You should see something like this:
 ```java
