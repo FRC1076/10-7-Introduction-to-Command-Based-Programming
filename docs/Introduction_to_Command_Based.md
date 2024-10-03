@@ -225,22 +225,20 @@ You should see a drop-down menu. To deploy code, select the **WPILib: Deploy Rob
 
 To make sure the code has correctly deployed, check both the terminal output in VSCode and the **Robot Code** light in the **FRC Driverstation** app (which should be green).
 
-## Safety
-Before we enable and run the code, there are some important safety rules to known and follow. Below are the rules:
+>## Safety
+>Before we enable and run **any** code on a robot, there are some important safety rules to know and follow:
+>
+>1. Before enabling, make sure to **check the surroundings of the robot**. If anyone is near the robot, tell them you are about to enable. If they don't move, don't enable.
+>
+>2. Make sure all the controllers that are plugged in are accounted for. **If a controller is not in someone's hand, unplug it**. This is so that nothing or no one will accidentally press a button on the controller or move a joystick, which could result in the robot moving unpredictably.
+>
+>3. If you are done testing the code, **disable the robot as soon as possible**. Never leave the enabled code unattended.
+>
+>4. **Wear safety glasses** if you are near an enabled robot. In the case that the robot does move unpredictably, this can help prevent injuries.
+>
+>5. **[SPACE] is EMERGENCY STOP!** If the robot is behaving in a dangerous way to itself or a human, hit the [SPACE] button immediately!
 
-1. Before enabling, make sure to **check the surroundings of the robot**. If anyone is near the robot, tell them you are about to enable. If they don't move, don't enable.
-
-2. Make sure all the controllers that are plugged in are accounted for. **If a controller is not in someone's hand, unplug it**. This is so that nothing or no one will accidentally press a button on the controller or move a joystick, which could result in the robot moving unpredictably.
-
-3. If you are done testing the code, **disable the robot as soon as possible**. Never leave the enabled code unattended.
-
-4. **Wear safety glasses** if you are near an enabled robot. In the case that the robot does move unpredictably, this can help prevent injuries.
-
-5. **[SPACE] is EMERGENCY STOP!** If the robot is behaving in a dangerous way to itself or a human, hit the [SPACE] button immediately!
-
-## Back to Running the Code!
-
-Next, we need to enable our code. To do this, open up the **FRC Driverstation** app, and select "Enable". 
+Finally, we need to enable our code. To do this, open up the **FRC Driverstation** app, and select "Enable". 
 
 ![image](FRCDriverStation.png)
 
