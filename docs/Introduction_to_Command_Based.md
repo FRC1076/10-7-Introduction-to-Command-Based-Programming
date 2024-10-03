@@ -373,7 +373,11 @@ public class RobotContainer {
 ``` 
 
 ### Getting code onto a robot
-Now, it's time to run our code. To do this, we need to first connect to Chuck. To do this, go to your wifi settings, and connect to the **1076_GullLake** network. To check if you're fully connected, open up the **FRC Driverstation** and make sure the **Communications** light is green.
+Now, it's time to run our code. To do this, we need to first connect to Chuck. To do this, go to your wifi settings, and connect to the **1076_GullLake** network.
+
+![image](GullLake.png)
+
+To check if you're fully connected, open up the **FRC Driverstation** and make sure the **Communications** light is green.
 
 Once we're connected to Chuck, we need to deploy your code. Press the small 'W' in the top right corner of VSCode to open your command palette.
 
@@ -383,7 +387,9 @@ You should see a drop-down menu. To deploy code, select the **WPILib: Deploy Rob
 
 ![image](CommandPaletteDropdown.png)
 
-To make sure the code has correctly deployed, check the terminal output in VSCode, and make sure the **Robot Code** light in the FRC Driverstation is green
+To make sure the code has correctly deployed, check the terminal output in VSCode, and make sure the **Robot Code** light in the FRC Driverstation is green. When you're ready to enable code, your Driverstation should look something like this:
+
+![image](Driverstation.png)
 
 >### Safety
 >Before we enable and run **any** code on a robot, there are some important safety rules to know and follow:
