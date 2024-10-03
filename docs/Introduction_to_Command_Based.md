@@ -223,9 +223,9 @@ You should see a drop-down menu. To deploy code, select the **WPILib: Deploy Rob
 
 ![image](CommandPaletteDropdown.png)
 
-To make sure the code has correctly deployed, check both the terminal output in VSCode and the **Robot Code** light in the **FRC Driverstation** app (which should be green).
+To make sure the code has correctly deployed, check the terminal output in VSCode, and open up the **FRC Driverstation** app and ensure the **Robot Code** light is **Green**
 
->## Safety
+>### Safety
 >Before we enable and run **any** code on a robot, there are some important safety rules to know and follow:
 >
 >1. Before enabling, make sure to **check the surroundings of the robot**. If anyone is near the robot, tell them you are about to enable. If they don't move, don't enable.
@@ -238,11 +238,11 @@ To make sure the code has correctly deployed, check both the terminal output in 
 >
 >5. **[SPACE] is EMERGENCY STOP!** If the robot is behaving in a dangerous way to itself or a human, hit the [SPACE] button immediately!
 
-Finally, we need to enable our code. To do this, open up the **FRC Driverstation** app, and select "Enable". 
+Finally, we need to enable our code. To do this, select "Enable" in the FRC Driverstation app
 
 ![image](FRCDriverStation.png)
 
 >When the orange light on Chuck starts flashing, that means your code is enabled
 
 
-Congratulations! You have just successfully written and deployed your first robot program! On Wednesday, we will be looking at the RobotContainer
+Congratulations! You have just successfully written and deployed your first robot program! On Wednesday, we will be looking at Commands and the RobotContainer
