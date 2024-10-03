@@ -129,7 +129,7 @@ public class DriveSubsystem extends SubsystemBase {
 
     }
     
-    public void drive(double leftSpeed, double rightSpeed){
+    public void drive(double leftPower, double rightPower){
         // Write drive method here
 
     }
@@ -206,7 +206,7 @@ public class DriveSubsystem extends SubsystemBase {
         m_rightLeader.setInverted(true);
     }
     
-    public void drive(double leftSpeed, double rightSpeed){
+    public void drive(double leftPower, double rightPower){
         m_leftLeader.set(leftPower);
         m_rightLeader.set(rightPower);
     }
@@ -326,7 +326,7 @@ import frc.robot.subsystems.DriveSubsystem;
 Next, we need to instantiate our subsystem in the `RobotContainer` class:
 
 ```java
-private final m_robotDrive = new DriveSubsystem();
+private final DriveSubsystem m_robotDrive = new DriveSubsystem();
 ```
 Now, we need to tell the robot to schedule our `TankDrive` command. To do this, we will set it as our subsystem's default command in the `RobotContainer` constructor. Since we want to control our robot from an Xbox controller, we will pass the xbox controller's sticks as the speeds, which can be retrieved with the `getLeftY` and `getRightY` methods.
 ```java
@@ -358,7 +358,7 @@ public class RobotContainer {
 
     private final CommandXboxController m_driverController =
         new CommandXboxController(OperatorConstants.kDriverControllerPort);
-    private final m_robotDrive = new DriveSubsystem();
+    private final DriveSubsystem m_robotDrive = new DriveSubsystem();
 
     public RobotContainer() {
         m_robotDrive.setDefaultCommand(new TankDrive(
