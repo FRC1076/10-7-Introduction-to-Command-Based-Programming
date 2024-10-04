@@ -331,8 +331,8 @@ private final DriveSubsystem m_robotDrive = new DriveSubsystem();
 Now, we need to tell the robot to schedule our `TankDrive` command. To do this, we will set it as our subsystem's default command in the `RobotContainer` constructor. Since we want to control our robot from an Xbox controller, we will pass the xbox controller's sticks as the speeds, which can be retrieved with the `getLeftY` and `getRightY` methods.
 ```java
 m_robotDrive.setDefaultCommand(new TankDrive(
-    () -> m_driverController.getLeftY(),
-    () -> m_driverController.getRightY(),
+    () -> -m_driverController.getLeftY(),
+    () -> -m_driverController.getRightY(),
     m_robotDrive
 ));
 ```
