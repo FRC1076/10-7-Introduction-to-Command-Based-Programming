@@ -338,6 +338,8 @@ m_robotDrive.setDefaultCommand(new TankDrive(
 ```
 >A subsystem's **default command** is automatically scheduled when the robot starts up. Typically, default commands should have no end condition, and should only stop when they are interrupted by another command using the same subsystem.
 
+>The controller inputs need to be inverted, as the controller API considers down to be positive in the Y direction on the sticks
+
 > `() -> m_driverController.getLeftY()` is a **lambda expression** that returns the value of `m_driverController.getLeftY()`. A lambda expression is similar to a method, in that it takes parameters and then returns some value, but lambda expressions can be created without a name, and can be implemented right in the body of a method. We need to pass a lambda expression to our command because passing `m_driverController.getLeftY()` would pass a double, while we want to pass the method *itself*. If we simply passed `m_driverController.getLeftY()` as a double, the robot would check the value of the left stick on the controller *exactly once*, and then the command would be permanently stuck on that value.
 
 The code should look something like this:
@@ -362,8 +364,8 @@ public class RobotContainer {
 
     public RobotContainer() {
         m_robotDrive.setDefaultCommand(new TankDrive(
-            () -> m_driverController.getLeftY(),
-            () -> m_driverController.getRightY(),
+            () -> -m_driverController.getLeftY(),
+            () -> -m_driverController.getRightY(),
             m_robotDrive
         ));
     }
