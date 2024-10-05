@@ -340,7 +340,7 @@ m_robotDrive.setDefaultCommand(new TankDrive(
 
 > `() -> m_driverController.getLeftY()` is a **lambda expression** that returns the value of `m_driverController.getLeftY()`. We'll learn more about lambda expressions later, but for now all you need to know about them is that they are a way to treat methods as if they were objects (e.g. passing them as a parameter)
 
->The controller inputs need to be inverted, as the commandXboxController API considers down to be positive in the y direction on the sticks.
+>Because of how Chuck's motors have been set up, the inputs on the controller sticks need to be inverted for our code to function properly
 
 The code should look something like this:
 ```java
