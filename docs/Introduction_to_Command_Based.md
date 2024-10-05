@@ -25,6 +25,8 @@ class Car {
 >
 > Another data type which *isn't* primitive but does come up alot is `String`, which represents strings of text (like the one you're reading right now).
 
+>Variables don't *have* to be primitive data types. They can also be objects themselves. Object variables mostly behave the same as primitive variables (with a few important caveats), and their type still needs to be explicitly declared. We will see some examples of object variables later.
+
 Great! Now we have some information about our car. But we still need to make it do stuff. Let's add a method called `drive`, which tells our car to subtract 1 from its gas and add 1 to its position:
 ```java
 class Car {
@@ -86,7 +88,7 @@ class Car {
         gas -= 1;
     }
     public static void main(String[] args){
-        Car1 = new Car();
+        Car Car1 = new Car();
     }
 }
 ```
@@ -94,7 +96,18 @@ class Car {
 
 >You may have noticed the `static` keyword on the `main` method. This tells Java that the `main` method belongs to the `Car` *class*, not any particular `Car` object. This means that it can be called *without needing to first create an object*
 
-Almost all classes you write will **not** need a `main` method, as it only ever needs to be called once, as an entry point into the program. After that, you can instantiate objects normally
+>Almost all classes you write will **not** need a `main` method, as it only ever needs to be called once, as an entry point into the program. After that, you can instantiate objects normally.
+
+>Variables do not necessarily need to be associated with an object. Within the body of a method, you can create local variables that only exist *within the method*, and cannot be referenced outside of the method. This is what we are doing with the `Car1` variable in the `main` method.
+
+Now that our `Car` object has been created, let's call our `drive` method on it:
+
+```java
+public static void main(String[] args){
+    Car Car1 = new Car();
+    Car1.drive();
+}
+```
 
 Here are helpful resources for learning more about Java:
 
