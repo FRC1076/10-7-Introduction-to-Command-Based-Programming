@@ -109,6 +109,14 @@ public static void main(String[] args){
 }
 ```
 
+Great! Now we have successfully created our first java program!
+
+>Here are some common and useful methods that we didn't go over in this lesson:
+>
+> - `System.out.println(Object obj)`: Prints `obj` to the terminal as a string.
+> - `toString()`: A special method that exists for all objects, it returns the object's string representation. When `toString()` isn't explicitly defined in an object's class, by default it returns a special number called a "hash code". the `System.out.println(Object obj)` implicitly calls the `toString()` method on `obj`
+> - `equals(Object obj)`: Another special method that exists for all objects, it determines whether the object its called on is equal to the `obj` object passed as a parameter. As an example, if we wanted to check the equivalence of two objects `Object1` and `Object2`, we would use `Object1.equals(Object2)`. Like with `toString()`, `equals(Object obj)` has a default implementation when it is not explicitly defined in a class.
+
 Here are helpful resources for learning more about Java:
 
 [Codecademy Java Course](https://www.codecademy.com/learn/learn-java)
