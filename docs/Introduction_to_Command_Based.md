@@ -1,8 +1,8 @@
-# Introduction to Command Based Programming
+# Introduction to Command Based Programming - Day 1
 
 >This guide assumes you have set up the FRC development environment and have some previous experience with programming. [Here](https://docs.google.com/document/d/1D_mcwmVLvQwqdbdHkHKadVn-h2wcsIWZaU5CHTG-qwE/edit) is a guide to install the FRC Development Environment, if you do not already have it on your machine. If you have questions or need assistance, feel free to ask David or any of the other returning software team members
 ## Java
->If you are already familiar with the Java programming language, you can skip this section
+> If you are already familiar with the Java programming language, you can skip this section
 
 In Robotics, we use the Java programming language. Java is an **Object Oriented Language**. This means that everything in Java is an **Object**. **Classes** are essentially "blueprints" for objects. They define how objects behave, and what kinds of information they contain. If we were writing a program to simulate a car, we would start by creating a Car class:
 ```java
@@ -130,8 +130,10 @@ For programming our robots, we use a **Command-based** architecture. This means 
 - Subsystems, which control the robot's various systems (driving, arms, servos, etc.)
 - Commands, which control the subsystems (drive forward, move arm up, etc.)
 - The Robot Container, which creates and contains all of the commands and subsystems
+
+Over the next two build sessions, we will be building a simple tank drive program to control Chuck.
 ### Subsystems 
-Today, we will be making a subsystem that will drive Chuck. To begin, go to the src/main/java/frc/robot/subsystems folder, and open "DriveSubsystem.java". You should see something like this:
+Today, we will be making a subsystem that will control Chuck's drive motors. To begin, go to the src/main/java/frc/robot/subsystems folder, and open "DriveSubsystem.java". You should see something like this:
 ```java
 package frc.robot.subsystems;
 
@@ -233,9 +235,11 @@ public class DriveSubsystem extends SubsystemBase {
     }
 }
 ```
+# Introduction to Command Based Programming - Day 2
+
 ### Commands
 
-We now have a functional subsystem, but we have no way of controlling it! Let's make a command to run our subsystem. First, open up the commands/TankDrive.java file. It should look like this:
+On monday, we made a functional subsystem for Chuck's drivetrain, but we have no way of controlling it! Let's make a command to run our subsystem. First, open up the commands/TankDrive.java file. It should look like this:
 ```java
 package frc.robot.commands;
 
@@ -359,7 +363,7 @@ m_robotDrive.setDefaultCommand(new TankDrive(
 ```
 >A subsystem's **default command** is automatically scheduled when the robot starts up. Typically, default commands should have no end condition, and should only stop when they are interrupted by another command using the same subsystem.
 
-> `() -> m_driverController.getLeftY()` is a **lambda expression** that returns the value of `m_driverController.getLeftY()`. We'll learn more about lambda expressions later, but for now all you need to know about them is that they are a way to treat methods as if they were objects (e.g. passing them as a parameter)
+> `() -> m_driverController.getLeftY()` is a **lambda expression** that returns the value of `m_driverController.getLeftY()`. We'll learn more about lambda expressions later, but for now all you need to know about them is that they are a way to treat methods as if they were objects (e.g. passing them as a parameter). If we didn't use a lambda expression, the robot would check the value of the Controller *exactly once*, and then would permanemtly be stuck on those inputs
 
 >Because of how Chuck's motors have been set up, the inputs on the controller sticks need to be inverted for our code to function properly
 
