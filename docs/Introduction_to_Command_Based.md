@@ -174,7 +174,7 @@ private final WPI_TalonSRX m_rightFollower = new WPI_TalonSRX(3);
 ```
 this part instatiates our motors and points them to the correct motor ports.
 
-Our first task is to build a constructor for the DriveSubsystem class. Because we are building a simple tankdrive, we want all the motors on a given side of the robot to have the same output. While we can manually set the motors to the same output, it would be easier to automate the process. To do this, we will slave the back motors to the front motors, which means that the back motors will automatically copy the output of the front motors:
+Our first task is to build a constructor for the DriveSubsystem class. Because we are building a simple tankdrive, we want all the motors on a given side of the robot to have the same output. While we can manually set the motors to the same output, it would be easier to automate the process. To do this, we will make the back motors follow the front motors, which means that the back motors will automatically copy the output of the front motors:
 
 ```java
 public driveSubsystem(){
@@ -203,7 +203,7 @@ public void drive(double leftPower, double rightPower){
 }
 ```
 
->Because we slaved our back motors, calling the `set` method on the front motors will automatically also set the back motors to the same power.
+>Because we made our back motors follow the front motors, calling the `set` method on the front motors will automatically also set the back motors to the same power.
 
 Now, we have a functioning drive subsystem! Our code should look something like this:
 
