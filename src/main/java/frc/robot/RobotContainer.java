@@ -6,13 +6,21 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.TankDrive;
+import frc.robot.subsystems.DriveSubsystem;
 
 public class RobotContainer {
 
+    private final DriveSubsystem m_robotDrive = new DriveSubsystem();
     private final CommandXboxController m_driverController =
         new CommandXboxController(OperatorConstants.kDriverControllerPort);
 
+        
     public RobotContainer() {
-
+        m_robotDrive.setDefaultCommand(new TankDrive(
+            () -> -m_driverController.getLeftY(),
+            () -> -m_driverController.getRightY(),
+            m_robotDrive
+        ));
     }
 }

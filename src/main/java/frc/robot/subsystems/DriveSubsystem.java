@@ -12,9 +12,15 @@ public class DriveSubsystem extends SubsystemBase {
 
     public DriveSubsystem(){
         // Write constructor here
+        m_leftFollower.follow(m_leftLeader);
+        m_rightFollower.follow(m_rightLeader);
+
+        m_rightLeader.setInverted(true);
     }
     
     public void drive(double leftPower, double rightPower){
         // Write drive method here
+        m_leftLeader.set(leftPower);
+        m_rightLeader.set(rightPower);
     }
 }
