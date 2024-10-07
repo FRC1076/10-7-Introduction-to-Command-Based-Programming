@@ -252,7 +252,7 @@ public class TankDrive extends Command {
     private final DoubleSupplier rightSpeedSupplier;
     private final DriveSubsystem subsystem;
     
-    public ArcadeDrive(DoubleSupplier _left, DoubleSupplier _right, DriveSubsystem _subsystem){
+    public TankDrive(DoubleSupplier _left, DoubleSupplier _right, DriveSubsystem _subsystem){
         leftSpeedSupplier = _left;
         rightSpeedSupplier = _right;
         subsystem = _subsystem;

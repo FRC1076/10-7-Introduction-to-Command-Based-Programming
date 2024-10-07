@@ -1,6 +1,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.subsystems.DriveSubsystem;
@@ -13,13 +14,17 @@ public class TestRobotContainer {
 
     public TestRobotContainer() {
         m_driverController.leftTrigger(0.5).whileTrue(
-            new InstantCommand(
-                () -> m_drive.drive(0.5, 0.5)
+            new StartEndCommand(
+                () -> m_drive.drive(0.5,0.5),
+                () -> m_drive.drive(0,0), 
+                m_drive
             )
         );
         m_driverController.rightTrigger(0.5).whileTrue(
-            new InstantCommand(
-                () -> m_drive.drive(-0.5, -0.5)
+            new StartEndCommand(
+                () -> m_drive.drive(-0.5,-0.5),
+                () -> m_drive.drive(0,0), 
+                m_drive
             )
         );
     }

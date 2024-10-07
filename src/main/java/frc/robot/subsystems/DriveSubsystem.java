@@ -12,11 +12,9 @@ public class DriveSubsystem extends SubsystemBase {
 
     public DriveSubsystem(){
         // Write constructor here
-
     }
     
     public void drive(double leftPower, double rightPower){
         // Write drive method here
-
     }
 }
