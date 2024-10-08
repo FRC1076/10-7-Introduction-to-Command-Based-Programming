@@ -11,17 +11,10 @@ public class DriveSubsystem extends SubsystemBase {
     private final WPI_TalonSRX m_rightFollower = new WPI_TalonSRX(3);
 
     public DriveSubsystem(){
-        m_leftFollower.follow(m_leftLeader);
-        m_rightFollower.follow(m_rightLeader);
-
-        m_rightLeader.setInverted(true);
-
+        // Write constructor here
     }
     
     public void drive(double leftPower, double rightPower){
         // Write drive method here
-        m_leftLeader.set(leftPower);
-        m_rightLeader.set(rightPower);
-        
     }
 }
