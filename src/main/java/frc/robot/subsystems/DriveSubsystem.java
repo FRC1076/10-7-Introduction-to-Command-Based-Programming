@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
@@ -16,11 +17,19 @@ public class DriveSubsystem extends SubsystemBase {
         m_rightFollower.follow(m_rightLeader);
 
         m_rightLeader.setInverted(true);
+        
+       // DifferentialDrive m_differentialDrive = new DifferentialDrive(m_leftFollower, m_rightFollower);
+
     }
     
     public void drive(double leftPower, double rightPower){
         // Write drive method here
         m_leftLeader.set(leftPower);
         m_rightLeader.set(rightPower);
+    }
+
+    public void arcadeDrive(double moveSpeed, double turnSpeed){
+        
+        //m_differentialDrive.arcadeDrive(moveSpeed, turnSpeed);
     }
 }
