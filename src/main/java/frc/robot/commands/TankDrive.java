@@ -20,8 +20,8 @@ public class TankDrive extends Command {
     public void execute() {
         // Write your command here
         subsystem.drive(
-            leftSpeedSupplier.getAsDouble();
-            rightSpeedSupplier.getAsDouble();
+            leftSpeedSupplier.getAsDouble(),
+            rightSpeedSupplier.getAsDouble()
         );
     }
 

@@ -4,11 +4,15 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.TankDrive;
 import frc.robot.subsystems.DriveSubsystem;
 
 public class RobotContainer {
 
+    private final CommandXboxController m_drivController =
+        new CommandXboxController(OperatorConstants.kDriverControllerPort)
     private final DriveSubsystem m_robotDrive = new DriveSubsystem();
         new CommandXboxController(OperatorConstants.kDriverControllerPort);
 
